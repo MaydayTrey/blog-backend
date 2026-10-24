@@ -1,0 +1,60 @@
+So this is super important, sort of doing everything from the bottom up, 
+to reinforce what I learned, and try and doing so on my end.
+
+1 - Starting a node project, so the backend will be node, so I need to create a node.js instance. 
+First initialize an NPM 
+npm init -y
+
+I then put in scripts of package.json, nodemon. Which I don't quite know much about, but did anyways.
+The first thing I need to do is staging, I need to get an env, and our dependencies set up.
+Installed mongoose [x]
+Installed express [x]
+Installed ESLint[x] --> put it in the devDependencies scripts.
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "nodemon": "nodemon index.js",
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "lint": "eslint ."
+Need familiarity with eslint . and node --watch index.js, to recall what exactly that does.
+I now need to create an env. 
+
+So I went ahead and built out, ahead of the course, because for me it's easier to just push forward and build. 
+But here is the code they show. 
+
+const express = require('express')
+const mongoose = require('mongoose')
+
+const app = express()
+
+const blogSchema = mongoose.Schema({
+  title: String,
+  author: String,
+  url: String,
+  likes: Number,
+})
+const Blog = mongoose.model('Blog', blogSchema)
+----> Put the Schema in the model
+
+const mongoUrl = 'mongodb://localhost/bloglist'
+mongoose.connect(mongoUrl, { family: 4 })
+
+app.use(express.json())
+
+app.get('/api/blogs', (request, response) => {
+  Blog.find({}).then((blogs) => {
+    response.json(blogs)
+  })
+})
+
+app.post('/api/blogs', (request, response) => {
+  const blog = new Blog(request.body)
+
+  blog.save().then((result) => {
+    response.status(201).json(result)
+  })
+})
+
+const PORT = 3003
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+})

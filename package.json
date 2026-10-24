@@ -1,0 +1,32 @@
+{
+  "name": "blog-backend",
+  "version": "1.0.0",
+  "description": "Full stack open - Part 4",
+  "main": "index.js",
+  "scripts": {
+    "nodemon": "nodemon index.js",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=development node --watch index.js",
+    "lint": "eslint .",
+    "test": "cross-env NODE_ENV=test node --test --test-concurrency=1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cross-env": "^10.1.0",
+    "dotenv": "^18.0.5",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.10.4"
+  },
+  "devDependencies": {
+    "eslint": "^10.12.0",
+    "supertest": "^7.3.1"
+  },
+  "allowScripts": {
+    "bcrypt@6.0.0": true
+  }
+}

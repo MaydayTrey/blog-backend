@@ -1,0 +1,38 @@
+GET http://localhost:3001/api/blogs
+
+###
+GET http://localhost:3001/api/users
+
+###
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+    "username": "Testing",
+    "name": "Trey",
+    "password": "Testing123"
+}
+
+
+###
+
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "username": "Testing",
+    "name": "Tres",
+    "password": "Testing123"
+}
+
+###
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3RpbmciLCJpZCI6IjZhZGJiMjlhZGY1NjIzMTg4M2UxZDY3ZCIsImlhdCI6MTc5Mjc4MzEyNCwiZXhwIjoxNzkyNzg2NzI0fQ.6R9boEZ2iKikRzBn-Y5TJOvXD6qdtNuUitNZ180n7ow
+
+{
+    "title": "Learning JWT, v1",
+    "author": "Some Noob",
+    "url": "HelpingNoobs.com",
+    "likes": 100
+}
