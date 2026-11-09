@@ -8,11 +8,12 @@ const middleware = require('./utils/middleware')
 const blogRouter = require('./controllers/blogs')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
+const testingRouter = require('./controllers/testing')
 
 const app = express()
 
 
-logger.info('connecting to', config.MONGODB_URI)
+logger.info('connecting')
 
 mongoose
     .connect(config.MONGODB_URI, { family: 4})
@@ -31,7 +32,16 @@ app.use('/api/blogs', blogRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 
+//Guarded router initialization; only if the NODE_ENV is 'test' do we give access to the testing endpoint. 
+if (process.env.NODE_ENV === 'test') {
+  const testingRouter = require('./controllers/testing')
+  app.use('/api/testing', testingRouter)
+}
+
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
+
+
+
 
 module.exports = app

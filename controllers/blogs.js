@@ -65,8 +65,8 @@ blogRouter.post('/', middleware.userExtractor, async (request, response) => {
     const savedBlog = await blog.save()
     user.blogs = user.blogs.concat(savedBlog._id)
     await user.save()
-    response.status(201).json(savedBlog)
-
+    const populatedBlog = await savedBlog.populate('user', { username: 1, name: 1 })
+    response.status(201).json(populatedBlog)
         //This sends as a response the savedBlog
         //Really it should just send status code of success and some message
     //That panhandle error catch, not how does this relate to placement, it needs to be the bottom just like regular .then/.catch structure.
@@ -92,7 +92,7 @@ blogRouter.delete('/:id', middleware.userExtractor, async (request, response) =>
 // ---- UPDATING A SPECIFIC RESOURCE ON THE SERVER ---- //
 blogRouter.put('/:id', async (request, response) => {
     const body = request.body
-    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, body, { new: true })
+    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, body, { new: true }).populate('user', { username: 1, name: 1 })
     response.status(200).json(updatedBlog)
 })
 
